@@ -1,20 +1,23 @@
 [Unit]
-Description=Will Site Python Web Service
+Description=WillSite Flask Web Service
 After=network.target
 
 [Service]
-Type=simple
 User=will
 Group=will
-WorkingDirectory=/home/will/willsite_webservice
 
-ExecStart=/usr/bin/python3 /home/will/willsite_webservice/wsgi.py
+WorkingDirectory=/home/will/willsite_webservice/src
+
+ExecStart=/usr/local/bin/gunicorn \
+    --workers 1 \
+    --bind 127.0.0.1:9600 \
+    wsgi:app
 
 Restart=always
 RestartSec=5
 
-StandardOutput=append:/home/will/willsite_webservice/willsite.log
-StandardError=append:/home/will/willsite_webservice/willsite-error.log
+StandardOutput=append:/home/will/gunicorn.log
+StandardError=append:/home/will/gunicorn-error.log
 
 [Install]
 WantedBy=multi-user.target
