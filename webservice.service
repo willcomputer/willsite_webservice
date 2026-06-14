@@ -8,10 +8,11 @@ Group=will
 
 WorkingDirectory=/home/will/willsite_webservice/src
 
-ExecStart=/usr/local/bin/gunicorn \
+ExecStart=/usr/bin/python3 -m gunicorn \
     --workers 1 \
-    --bind 127.0.0.1:9600 \
+    --bind 127.0.0.1:6900 \
     wsgi:app
+
 
 Restart=always
 RestartSec=5
