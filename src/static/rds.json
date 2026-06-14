@@ -1,0 +1,114 @@
+[
+  {
+    "level": "1",
+    "ruleset": "6 balls, pocket object ball directly with no cue ball",
+    "completed": "true",
+    "frequency": "4",
+    "skillLevel": "Lower Novice"
+  },
+  {
+    "level": "2",
+    "ruleset": "6 balls, any order, BIH on every shot",
+    "completed": "true",
+    "frequency": "4",
+    "skillLevel": "Mid Novice"
+  },
+  {
+    "level": "3",
+    "ruleset": "6 balls, any order, 3 extra BIHs",
+    "completed": "false",
+    "frequency": "2",
+    "skillLevel": "Upper Novice"
+  },
+  {
+    "level": "4",
+    "ruleset": "6 balls, any order, 2 extra BIHs",
+    "completed": "false",
+    "frequency": "1",
+    "skillLevel": "Lower Beginner"
+  },
+  {
+    "level": "5",
+    "ruleset": "6 balls, any order, 1 extra BIH",
+    "completed": "false",
+    "frequency": "1",
+    "skillLevel": "Mid Beginner"
+  },
+  {
+    "level": "6",
+    "ruleset": "7 balls (3 solids, 3 stripes, 8), 8-ball rules, 1 extra BIH",
+    "completed": "false",
+    "frequency": "1",
+    "skillLevel": "Upper Beginner"
+  },
+  {
+    "level": "7",
+    "ruleset": "9 balls, any order, 1 extra BIH",
+    "completed": "false",
+    "frequency": "1",
+    "skillLevel": "Lower Intermediate"
+  },
+  {
+    "level": "8",
+    "ruleset": "9 balls (4 solids, 4 stripes, 8), 8-ball rules, 1 extra BIH",
+    "completed": "false",
+    "frequency": "1",
+    "skillLevel": "Mid Intermediate"
+  },
+  {
+    "level": "9",
+    "ruleset": "15 balls, any order, 2 extra BIHs",
+    "completed": "false",
+    "frequency": "1",
+    "skillLevel": "Upper Intermediate"
+  },
+  {
+    "level": "10",
+    "ruleset": "6 balls, in order",
+    "completed": "false",
+    "frequency": "1",
+    "skillLevel": "Lower Advanced"
+  },
+  {
+    "level": "11",
+    "ruleset": "15 balls, any order",
+    "completed": "false",
+    "frequency": "1",
+    "skillLevel": "Mid Advanced"
+  },
+  {
+    "level": "12",
+    "ruleset": "15 balls, 8-ball rules",
+    "completed": "false",
+    "frequency": "1",
+    "skillLevel": "Upper Advanced"
+  },
+  {
+    "level": "13",
+    "ruleset": "9 balls (4 solids, 4 stripes, 8), 8-ball rules, remaining balls in order",
+    "completed": "false",
+    "frequency": "1",
+    "skillLevel": "Lower Shortstop"
+  },
+  {
+    "level": "14",
+    "ruleset": "9 balls, 9-ball rules",
+    "completed": "false",
+    "frequency": "1",
+    "skillLevel": "Upper Shortstop"
+  },
+  {
+    "level": "15",
+    "ruleset": "15 balls, 8-ball rules, remaining balls in order",
+    "completed": "false",
+    "frequency": "1",
+    "skillLevel": "Semipro / Pro"
+  },
+  {
+    "level": "16",
+    "ruleset": "15 balls, in order",
+    "completed": "false",
+    "frequency": "1",
+    "skillLevel": "World Class Pro"
+  }
+]
