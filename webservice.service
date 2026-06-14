@@ -1,16 +1,20 @@
 [Unit]
-Description=Backend for will.computer
+Description=Will Site Python Web Service
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 -u /home/will/will.computer/backend/wsgi.py
-WorkingDirectory=/home/will/WorkingDirectory
-StandardOutput=inherit
-StandardError=inherit
+Type=simple
+User=will
+Group=will
+WorkingDirectory=/home/will/willsite_webservice
+
+ExecStart=/usr/bin/python3 /home/will/willsite_webservice/wsgi.py
+
 Restart=always
 RestartSec=5
-User=nobody
-Group=nogroup
+
+StandardOutput=append:/home/will/willsite_webservice/willsite.log
+StandardError=append:/home/will/willsite_webservice/willsite-error.log
 
 [Install]
 WantedBy=multi-user.target
