@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, make_response, send_file
 from flask_cors import CORS
-# from gpiozero import CPUTemperature
+from gpiozero import CPUTemperature
 import psutil, os, json, bcrypt, random, string, time
 
 app = Flask(__name__)
@@ -67,7 +67,7 @@ def createNewUserInAccounts(username, password):
     hashed_password = bcrypt.hashpw(password, custom_salt).decode('utf-8')
     session_token = generateSessionToken()
 
-    account_map[username] = {'password': hashed_password, 'token': session_token, 'last_roll': 0}
+    account_map[username] = {'password': hashed_password, 'token': session_token, 'previous': currentTime() - 5000}
 
     with open(path, "w") as f2:
         json.dump(account_map, f2, indent=4)
@@ -83,7 +83,7 @@ def createNewUserInStats(username):
         stats_map = json.loads(f1.read())
         f1.close()        
     
-    stats_map[username] = {"spins": 0, "points": 0}
+    stats_map[username] = {"spins": 0, "points": 1000}
 
     with open(path, "w") as f2:
         json.dump(stats_map, f2, indent=4)
@@ -107,14 +107,14 @@ def updateSessionToken(username, session_token):
         json.dump(account_map, f2, indent=4)
         f2.close()
 
-def updateRollWindow(username, time):
+def updateRollWindow(username):
     path = "static/accounts.json"
     account_map = {}
     with open(path, "r") as f1:
         account_map = json.loads(f1.read())
         f1.close()        
     
-    account_map[username]['last_roll'] = time
+    account_map[username]['previous'] = currentTime()
 
     with open(path, "w") as f2:
         json.dump(account_map, f2, indent=4)
@@ -142,7 +142,13 @@ def updateUserStats(username, score):
 ######################################################################
 
 def validationSessionToken(username, token):
-    return True
+    match = False
+    with open('static/accounts.json') as f:
+        account_map = json.loads(f.read())
+        if username in account_map:
+            match = account_map[username]['token'] == token
+        f.close()
+    return match
 
 def isPasswordCorrect(username, password) -> bool:
     hashed_input = bcrypt.hashpw(password, custom_salt).decode('utf-8')
@@ -162,10 +168,17 @@ def doesUserExist(username) -> bool:
         f.close()
     return exists
 
-def isRollWindowOpen(username, time) -> bool:
-    return True
+def isRollWindowOpen(username)-> bool:
+    isOpen = False
+    with open('static/accounts.json') as f:
+        account_map = json.loads(f.read())
+        if username in account_map:
+            isOpen = currentTime() - account_map[username]['previous'] > 4000
+        f.close()
+    return isOpen
 
-
+def currentTime():
+    return round(time.time() * 1000)
 
      
 ######################################################################
@@ -180,7 +193,6 @@ weights = [25, 15, 10, 50]
 def roll():
     username = request.args.get('username')
     session_token = request.args.get('token')
-    time = request.args.get('time')
 
     if not(doesUserExist(username)):
         return add_cors_headers(invalidUsernameRepsonse())
@@ -188,10 +200,10 @@ def roll():
     if not(validationSessionToken(username, session_token)):   
         return add_cors_headers(invalidSessionToken())
 
-    if not(isRollWindowOpen(username, time)):
+    if not(isRollWindowOpen(username)):
         return add_cors_headers(tooFastRoll())
 
-    updateRollWindow(username, time)
+    updateRollWindow(username)
 
     results = random.choices(symbols, weights=weights, k=3)
 
